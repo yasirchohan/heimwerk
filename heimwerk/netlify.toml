@@ -1,7 +1,6 @@
 [build]
-  base = "heimwerk"
   command = "npm run build"
-  publish = "heimwerk/.next"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
