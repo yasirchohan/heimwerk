@@ -3,7 +3,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import MenuSection from '@/components/sections/MenuSection'
 import ReservationForm from '@/components/sections/ReservationForm'
-import { prisma } from '@/lib/db'
+
 
 async function getMenu() {
   return []
