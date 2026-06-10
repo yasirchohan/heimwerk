@@ -6,18 +6,7 @@ import ReservationForm from '@/components/sections/ReservationForm'
 import { prisma } from '@/lib/db'
 
 async function getMenu() {
-  try {
-    const kategorien = await prisma.menuKategorie.findMany({
-      where: { aktiv: true },
-      orderBy: { reihenfolge: 'asc' },
-      include: {
-        gerichte: { where: { aktiv: true }, orderBy: { preis: 'asc' } },
-      },
-    })
-    return kategorien
-  } catch {
-    return []
-  }
+  return []
 }
 
 export default async function HomePage() {
