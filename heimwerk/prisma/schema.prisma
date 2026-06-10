@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Reservation {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  vorname     String
+  nachname    String
+  email       String
+  telefon     String
+  datum       DateTime
+  uhrzeit     String
+  personen    Int
+  anmerkung   String?
+  status      String   @default("PENDING")
+  confirmedAt DateTime?
+  cancelledAt DateTime?
+
+  @@index([datum])
+  @@index([email])
+  @@index([status])
+}
+
+model MenuKategorie {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  reihenfolge Int       @default(0)
+  aktiv       Boolean   @default(true)
+  gerichte    Gericht[]
+
+  @@index([slug])
+}
+
+model Gericht {
+  id           String        @id @default(cuid())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  name         String
+  beschreibung String?
+  preis        Float
+  preisSnack   Float?
+  vegan        Boolean       @default(false)
+  vegetarisch  Boolean       @default(false)
+  aktiv        Boolean       @default(true)
+  highlight    Boolean       @default(false)
+  bildUrl      String?
+  kategorieId  String
+  kategorie    MenuKategorie @relation(fields: [kategorieId], references: [id])
+
+  @@index([kategorieId])
+  @@index([aktiv])
+}
+
+model Kontakt {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  name      String
+  email     String
+  betreff   String
+  nachricht String
+  gelesen   Boolean  @default(false)
+
+  @@index([gelesen])
+}
